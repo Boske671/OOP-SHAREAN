@@ -1,6 +1,6 @@
 /*
-Vlasnik ste koncerna za iznajmljivanje pedalina diljem Jadrana. Imate niz lokacija na kojima iznamljujete, te vam je već pomalo nespretno voditi evidenciju o tome gdje su koje pedaline te ste se odlučili baciti na posao i napraviti C++ program koji će vam u tome pomoći.
-
+Vlasnik ste koncerna za iznajmljivanje pedalina diljem Jadrana. Imate niz lokacija na kojima iznamljujete, 
+te vam je već pomalo nespretno voditi evidenciju o tome gdje su koje pedaline te ste se odlučili baciti na posao i napraviti C++ program koji će vam u tome pomoći.
 Odlučili ste definirati niz lokacija gdje iznamljujete, i za svaku lokaciju bilježiti koje pedaline iznamljujete (kako vam ne bi nestale).
 
 Klasa Lokacija ima sljedeća svojstva:
