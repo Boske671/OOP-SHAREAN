@@ -1,0 +1,136 @@
+/*
+Potrebno je napisati program za evidenciju igrača u ekipi. Ekipa se sastoji od igrača, a za svakog igrača se evidentira broj na dresu, ime, prezime i trzisna cijena. 
+Potrebno je omogućiti ispis svih igrača u ekipi (naziv ekipe, te popis svih igrača poredano po broju na dresu). 
+Također, potrebno je omogućiti jednostavno dohvaćanje informacija u ukupnoj cijeni svih igrača, najskupljem igraču, te prosječnoj cijeni svih igrača. 
+Slijedeći programski odsječak u nastavku napišite sve potrebne klase i metode kojima se dobije očekivano ponašanje programskog koda.
+
+int main(){
+
+       Ekipa ekipa;
+       ekipa.naziv = "Tim raketa";
+       Igrac i1("Luka", "Modric");
+       i1.broj = 10;
+       i1.cijena = 50000000;
+       ekipa.dodajIgraca(i1);
+       Igrac i2("Mario", "Mandzukic");
+       i2.broj = 9;
+       i2.cijena = 27000000;
+       ekipa.dodajIgraca(i2);
+       Igrac i3("Darijo", "Srna");
+       i3.broj = 11;
+       i3.cijena = 14500000;
+       ekipa.dodajIgraca(i3);
+       ekipa.ispisi();
+       Igrac najskuplji = ekipa.dohvatiNajskupljeg();
+       cout << "Najskuplji igrac: ";
+       najskuplji.ispisi();
+       cout << "Ukupna cijena svih igraca: " << ekipa.ukupnaCijena() << endl;
+       cout << "Prosjecna cijena jednog igraca: " << ekipa.prosjecnaCijena() << endl;
+}
+*/
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Igrac {
+public:
+    int broj;
+    string ime, prezime;
+    long int cijena;
+    Igrac() {}
+    Igrac(string iime, string pprezime) : ime(iime), prezime(pprezime) {}
+
+    void ispisi() {
+        cout << ime << "\t" << prezime << "\t" << broj << "\t" << cijena << endl;
+    }
+};
+
+bool usporedba(Igrac a, Igrac b) {
+    return a.broj < b.broj;
+}
+
+class Ekipa {
+public:
+    string naziv;
+    vector<Igrac> igraci;
+    Ekipa() {}
+    Ekipa(string nnaziv) {
+        naziv = nnaziv;
+    }
+
+    void dodajIgraca(Igrac& ig) {
+        igraci.push_back(ig);
+    }
+
+    void ispisi() {
+        for (int i = 0; i < igraci.size(); i++)
+            igraci[i].ispisi();
+    }
+
+    Igrac dohvatiNajskupljeg() {
+        Igrac najskupljiIgrac;
+        int pomocnacijena = 0;
+        for (int i = 0;i < igraci.size();i++) {
+            if (igraci[i].cijena > pomocnacijena) {
+                pomocnacijena = igraci[i].cijena;
+                najskupljiIgrac = igraci[i];
+            }
+        }
+        return najskupljiIgrac;
+    }
+
+    int ukupnaCijena() {
+        int zbroj = 0;
+        for (int i = 0; i < igraci.size(); i++) {
+            zbroj = zbroj + igraci[i].cijena;
+        }
+        return zbroj;
+    }
+
+    int prosjecnaCijena() {
+        int zbroj = 0;
+        long int sredina = 0;
+        for (int i = 0; i < igraci.size(); i++) {
+            zbroj = zbroj + igraci[i].cijena;
+        }
+        sredina = zbroj / igraci.size();
+        return sredina;
+    }
+};
+
+int main() {
+
+    Ekipa ekipa;
+    ekipa.naziv = "Tim raketa";
+
+    Igrac i1("Luka", "Modric");
+    i1.broj = 10;
+    i1.cijena = 50000000;
+    ekipa.dodajIgraca(i1);
+
+    Igrac i2("Mario", "Mandzukic");
+    i2.broj = 9;
+    i2.cijena = 27000000;
+    ekipa.dodajIgraca(i2);
+
+    Igrac i3("Darijo", "Srna");
+    i3.broj = 11;
+    i3.cijena = 14500000;
+    ekipa.dodajIgraca(i3);
+
+    sort(ekipa.igraci.begin(), ekipa.igraci.end(), usporedba);
+    ekipa.ispisi();
+
+    Igrac najskuplji = ekipa.dohvatiNajskupljeg();
+    cout << "Najskuplji igrac: ";
+    najskuplji.ispisi();
+
+    cout << "Ukupna cijena svih igraca: " << ekipa.ukupnaCijena() << endl;
+    cout << "Prosjecna cijena jednog igraca: " << ekipa.prosjecnaCijena() << endl;
+
+    return 0;
+}
